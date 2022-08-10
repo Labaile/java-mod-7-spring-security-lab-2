@@ -1,0 +1,6 @@
+clientid:
+1ba066843c74afee4126
+
+
+client secrets:
+39f9293709b85a7293de5bab8eb89576aa9764a8

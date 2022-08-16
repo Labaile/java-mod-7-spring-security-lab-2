@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import java.io.Serializable;
 import java.sql.SQLOutput;
 import java.util.List;

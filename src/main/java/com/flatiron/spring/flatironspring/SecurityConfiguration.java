@@ -11,22 +11,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+public class SecurityConfiguration {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+   // @Override
+    //protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers("/api/status")
+//                .hasAuthority("admin");
+//
         http.authorizeRequests()
-                .antMatchers("/api/status")
-                .hasAuthority("admin");
-
-        http.authorizeRequests()
-                .antMatchers("/api/**")
+                .antMatchers("/coingecko")
                 .authenticated()
                 .and()
-                .formLogin()
+                .formLogin()  // change httpBasic() to oauth2Login() for API resources
                 .and()
                 .logout();
 
@@ -37,19 +39,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .oauth2Login();
 
+        return http.build();
 
-
-        http.authorizeRequests()
-                .antMatchers("/coingecko")
-                .hasAuthority("admin");
-
-        http.authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .and()
-                .logout();
+//        http.authorizeRequests()
+//                .antMatchers("/coingecko")
+//                .hasAuthority("admin");
+//
+//        http.authorizeRequests()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .formLogin()
+//                .and()
+//                .logout();
     }
 
     @Bean
@@ -60,7 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         String password = "1234";
         UserDetails thisUser = User.withUsername(username)
                 .password(passwordEncoder().encode(password))
-                .authorities("read")
+                .authorities("admin")
                 .build();
         userDetailService.createUser(thisUser);
 
@@ -69,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         password = "1";
         thisUser = User.withUsername(username)
                 .password(passwordEncoder().encode(password))
-                .authorities("admin")
+                .authorities("read")
                 .build();
         userDetailService.createUser(thisUser);
 

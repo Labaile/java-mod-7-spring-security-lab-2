@@ -10,7 +10,7 @@ public class BitcoinServiceIntegrationTest {
         BitcoinService bitcoinService = new BitcoinService();
         String bitcoinPrice = bitcoinService.getBitcoinPrice();
         assertThat(bitcoinPrice).isNotNull();
-//        String bitcoinPrice2 = coinCapService.getBitcoinPrice();
+//        String bitcoinPrice2 = bitcoinService.getBitcoinPrice();
 //        assertThat(bitcoinPrice2).isNotNull();
 //        assertThat(bitcoinPrice).isNotEqualTo(bitcoinPrice2);
     }
